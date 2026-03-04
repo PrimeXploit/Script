@@ -20,10 +20,10 @@ local Tabs = {
 local Options = Fluent.Options
 
 -- Main_Tab
-require(script.Tabs.Main_Tab.PrintManager).Init(Tabs, Options, Fluent)
+require("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Main_Tab/PrintManager.Lua").Init(Tabs, Options, Fluent)
 
 -- Settings_Tab
-require(script.Tabs.Settings_Tab.InterfaceManager).Init(Tabs, Options, Fluent, SaveManager, InterfaceManager)
+require("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Settings_Tab/InterfaceManager.Lua").Init(Tabs, Options, Fluent, SaveManager, InterfaceManager)
 
 Window:SelectTab(1)
 
