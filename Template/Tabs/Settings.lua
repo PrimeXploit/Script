@@ -1,0 +1,101 @@
+local httpService = game:GetService("HttpService")
+
+local SettingsManager = {} do
+	SettingsManager.Folder = "PrimeXploitSettings"
+    SettingsManager.Settings = {
+        Theme = "Dark",
+        Acrylic = false,
+        Transparency = true,
+        MenuKeybind = "LeftControl"
+    }
+
+    function SettingsManager:SetFolder(folder)
+		self.Folder = folder;
+		self:BuildFolderTree()
+	end
+
+    function SettingsManager:SetLibrary(library)
+		self.Library = library
+	end
+
+    function SettingsManager:BuildFolderTree()
+		local paths = {}
+
+		local parts = self.Folder:split("/")
+		for idx = 1, #parts do
+			paths[#paths + 1] = table.concat(parts, "/", 1, idx)
+		end
+
+		table.insert(paths, self.Folder)
+		table.insert(paths, self.Folder .. "/settings")
+
+		for i = 1, #paths do
+			local str = paths[i]
+			if not isfolder(str) then
+				makefolder(str)
+			end
+		end
+	end
+
+    function SettingsManager:SaveSettings()
+        writefile(self.Folder .. "/options.json", httpService:JSONEncode(SettingsManager.Settings))
+    end
+
+    function SettingsManager:LoadSettings()
+        local path = self.Folder .. "/options.json"
+        if isfile(path) then
+            local data = readfile(path)
+            local success, decoded = pcall(httpService.JSONDecode, httpService, data)
+
+            if success then
+                for i, v in next, decoded do
+                    SettingsManager.Settings[i] = v
+                end
+            end
+        end
+    end
+
+    function SettingsManager:BuildInterfaceSection(tab)
+        assert(self.Library, "Must set SettingsManager.Library")
+		local Library = self.Library
+        local Settings = SettingsManager.Settings
+
+        SettingsManager:LoadSettings()
+
+		local section = tab:AddSection("Interface")
+
+		local InterfaceTheme = section:AddDropdown("InterfaceTheme", {
+			Title = "Theme",
+			Description = "Changes the interface theme.",
+			Values = Library.Themes,
+			Default = Settings.Theme,
+			Callback = function(Value)
+				Library:SetTheme(Value)
+                Settings.Theme = Value
+                SettingsManager:SaveSettings()
+			end
+		})
+
+        InterfaceTheme:SetValue(Settings.Theme)
+	
+		section:AddToggle("TransparentToggle", {
+			Title = "Transparency",
+			Description = "Makes the interface transparent.",
+			Default = Settings.Transparency,
+			Callback = function(Value)
+				Library:ToggleTransparency(Value)
+				Settings.Transparency = Value
+                SettingsManager:SaveSettings()
+			end
+		})
+	
+		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Default = Settings.MenuKeybind })
+		MenuKeybind:OnChanged(function()
+			Settings.MenuKeybind = MenuKeybind.Value
+            SettingsManager:SaveSettings()
+		end)
+		Library.MinimizeKeybind = MenuKeybind
+    end
+end
+
+return SettingsManager
