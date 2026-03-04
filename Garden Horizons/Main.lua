@@ -18,7 +18,7 @@ local Tabs = {
 local Options = Fluent.Options
 
 -- Main
-loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Main.Lua"))().Init(Tabs, Options, Fluent)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Main.Lua"))().Init(Tabs.Main, Options, Fluent)
 
 -- Settings
 local SettingsManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Settings.lua"))()
