@@ -20,10 +20,17 @@ local Tabs = {
 local Options = Fluent.Options
 
 -- Main_Tab
-loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Main_Tab/PrintManager.Lua"))().Init(Tabs, Options, Fluent)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Main.Lua"))().Init(Tabs, Options, Fluent)
 
--- Settings_Tab
-loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Settings_Tab/InterfaceManager.Lua"))().Init(Tabs, Options, Fluent, SaveManager, InterfaceManager)
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({})
+InterfaceManager:SetFolder("FluentScriptHub")
+SaveManager:SetFolder("FluentScriptHub/PrimeXploit")
+
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
 
 Window:SelectTab(1)
 
