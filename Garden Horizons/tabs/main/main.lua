@@ -1,0 +1,3 @@
+local Tabs, Options, Fluent = ...
+
+loadstring(game:HttpGet("RAW_URL/tabs/main/sections/print.lua"))(Tabs, Options, Fluent)
