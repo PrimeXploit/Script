@@ -1,6 +1,6 @@
-local PrintManager = {}
+local MainManager = {}
 
-function PrintManager.Init(Tabs, Options, Fluent)
+function MainManager.Init(Tabs, Options, Fluent)
 	local section = Tabs.Main:AddSection("Text Printer")
 
 	section:AddInput("PrintInput", {
@@ -18,10 +18,10 @@ function PrintManager.Init(Tabs, Options, Fluent)
 		Callback = function()
 			local text = Options.PrintInput.Value
 			if text and text ~= "" then
-				print("[PrimeXploit]:", text)
+				print("[ PrimeXploit ]:", text)
 				Fluent:Notify({
 					Title = "PrimeXploit",
-					Content = "Printed: " .. text,
+					Content = "Printed : " .. text,
 					Duration = 3
 				})
 			else
@@ -35,4 +35,4 @@ function PrintManager.Init(Tabs, Options, Fluent)
 	})
 end
 
-return PrintManager
+return MainManager
