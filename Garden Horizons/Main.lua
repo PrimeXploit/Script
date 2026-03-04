@@ -24,7 +24,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/re
 local SettingsManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Settings.lua"))()
 
 SettingsManager:SetLibrary(Fluent)
-SettingsManager:SetFolder("PrimeXploit")
+SettingsManager:SetFolder("PrimeXploitSettings")
 SettingsManager:BuildInterfaceSection(Tabs.Settings)
 
 Window:SelectTab(1)
