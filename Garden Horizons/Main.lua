@@ -1,6 +1,4 @@
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
 	Title = "PrimeXploit",
@@ -19,18 +17,15 @@ local Tabs = {
 
 local Options = Fluent.Options
 
--- Main_Tab
+-- Main
 loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Main.Lua"))().Init(Tabs, Options, Fluent)
 
-SaveManager:SetLibrary(Fluent)
-InterfaceManager:SetLibrary(Fluent)
-SaveManager:IgnoreThemeSettings()
-SaveManager:SetIgnoreIndexes({})
-InterfaceManager:SetFolder("PrimeXploit")
-SaveManager:SetFolder("PrimeXploit")
+-- Settings
+local SettingsManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Garden%20Horizons/Tabs/Settings.lua"))()
 
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
-SaveManager:BuildConfigSection(Tabs.Settings)
+SettingsManager:SetLibrary(Fluent)
+SettingsManager:SetFolder("PrimeXploit")
+SettingsManager:BuildInterfaceSection(Tabs.Settings)
 
 Window:SelectTab(1)
 
@@ -39,5 +34,3 @@ Fluent:Notify({
 	Content = "Script loaded successfully.",
 	Duration = 5
 })
-
-SaveManager:LoadAutoloadConfig()
