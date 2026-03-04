@@ -1,7 +1,7 @@
 local MainManager = {}
 
 function MainManager.Init(Tabs, Options, Fluent)
-	local section = Tabs.Main:AddSection("Text Printer")
+	local section = Tabs:AddSection("Text Printer")
 
 	section:AddInput("PrintInput", {
 		Title = "Message",
