@@ -4,6 +4,7 @@ local SettingsManager = {} do
 	SettingsManager.Folder = "PrimeXploitSettings"
     SettingsManager.Settings = {
         Theme = "Dark",
+        Acrylic = false,
         Transparency = true,
         MenuKeybind = "LeftControl"
     }
