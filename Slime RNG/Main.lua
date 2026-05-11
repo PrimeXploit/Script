@@ -18,10 +18,10 @@ local Tabs = {
 local Options = Fluent.Options
 
 -- Main
-loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Template/Tabs/Main.Lua"))().Init(Tabs.Main, Options, Fluent, Window)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Slime%20RNG/Tabs/Main.Lua"))().Init(Tabs.Main, Options, Fluent, Window)
 
 -- Settings
-local SettingsManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Template/Tabs/Settings.lua"))()
+local SettingsManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Slime%20RNG/Tabs/Settings.lua"))()
 
 SettingsManager:SetLibrary(Fluent)
 SettingsManager:SetFolder("PrimeXploitSettings")
