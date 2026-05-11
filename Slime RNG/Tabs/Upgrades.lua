@@ -4,12 +4,16 @@
 local Upgrades = {}
 
 function Upgrades.Init(tab, Options, Fluent, Window)
-	local Check = loadstring(game:HttpGet(
-		"https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/src/Slime%20RNG/Upgrades/Check.lua"
-	))
-	local Buy = loadstring(game:HttpGet(
-		"https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/src/Slime%20RNG/Upgrades/Buy.lua"
-	))()
+	-- Lazy-load Buy: its top-level require() calls demote the thread identity,
+	-- which would make the Fluent AddSection calls below fail with
+	-- "lacking capability Plugin".
+	local Buy
+	local function getBuy()
+		Buy = Buy or loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/src/Slime%20RNG/Upgrades/Buy.lua"
+		))()
+		return Buy
+	end
 
 	local function notify(title, content)
 		Fluent:Notify({ Title = title, Content = content, Duration = 4 })
@@ -52,7 +56,7 @@ function Upgrades.Init(tab, Options, Fluent, Window)
 		Description = "Purchase everything affordable in 'main'",
 		Callback = function()
 			task.spawn(function()
-				local n = Buy.tree("main", delaySlider)
+				local n = getBuy().tree("main", delaySlider)
 				notify("Buy Main", ("Purchased %d upgrades"):format(n))
 			end)
 		end
@@ -63,7 +67,7 @@ function Upgrades.Init(tab, Options, Fluent, Window)
 		Description = "Purchase everything affordable in 'lootTree'",
 		Callback = function()
 			task.spawn(function()
-				local n = Buy.tree("lootTree", delaySlider)
+				local n = getBuy().tree("lootTree", delaySlider)
 				notify("Buy Loot", ("Purchased %d upgrades"):format(n))
 			end)
 		end
@@ -74,7 +78,7 @@ function Upgrades.Init(tab, Options, Fluent, Window)
 		Description = "Purchase everything affordable in 'playerTree'",
 		Callback = function()
 			task.spawn(function()
-				local n = Buy.tree("playerTree", delaySlider)
+				local n = getBuy().tree("playerTree", delaySlider)
 				notify("Buy Player", ("Purchased %d upgrades"):format(n))
 			end)
 		end
@@ -85,7 +89,7 @@ function Upgrades.Init(tab, Options, Fluent, Window)
 		Description = "Loop all trees until nothing is purchasable",
 		Callback = function()
 			task.spawn(function()
-				local n = Buy.all(delaySlider)
+				local n = getBuy().all(delaySlider)
 				notify("Buy All", ("Purchased %d upgrades total"):format(n))
 			end)
 		end
@@ -112,7 +116,7 @@ function Upgrades.Init(tab, Options, Fluent, Window)
 				return
 			end
 			task.spawn(function()
-				local ok, err = Buy.one(manualId)
+				local ok, err = getBuy().one(manualId)
 				if ok then
 					notify("Buy One", "OK: " .. manualId)
 				else
