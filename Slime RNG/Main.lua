@@ -13,6 +13,7 @@ local Window = Fluent:CreateWindow({
 local Tabs = {
 	Main = Window:AddTab({ Title = "Main", Icon = "home" }),
 	Upgrades = Window:AddTab({ Title = "Upgrades", Icon = "trending-up" }),
+	Zones = Window:AddTab({ Title = "Zones", Icon = "map" }),
 	Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -23,6 +24,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/re
 
 -- Upgrades
 loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Slime%20RNG/Tabs/Upgrades.lua"))().Init(Tabs.Upgrades, Options, Fluent, Window)
+
+-- Zones
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Slime%20RNG/Tabs/Zones.lua"))().Init(Tabs.Zones, Options, Fluent, Window)
 
 -- Settings
 local SettingsManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/PrimeXploit/Script/refs/heads/main/Slime%20RNG/Tabs/Settings.lua"))()
